@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Header } from "./components/Header";
 import { QuoteGenerator } from "./components/QuoteGenerator";
+import { Testimonials } from './components/Testimonials'
 
 export default function Home() {
   return (
@@ -237,6 +238,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Testimonials Section */}
+        <Testimonials />
 
         {/* Social Proof Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">

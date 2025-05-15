@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EduVibe - NIS Computer Science Learning Platform
 
-## Getting Started
+A modern learning platform for NIS students to master Computer Science concepts through well-structured articles and interactive examples.
 
-First, run the development server:
+## Contributing Articles
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+We welcome contributions from the community! Here's how you can contribute an article:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Article Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a new markdown file in `content/articles/` with the following format:
+   ```markdown
+   ---
+   title: "Your Article Title"
+   description: "A brief description of what readers will learn"
+   author: "Your Name"
+   date: "YYYY-MM-DD"
+   tags: ["tag1", "tag2", "tag3"]
+   difficulty: "beginner|intermediate|advanced"
+   readingTime: "X min"
+   contributors: ["Contributor1", "Contributor2"]
+   lastUpdated: "YYYY-MM-DD"
+   ---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   # Your Article Title
 
-## Learn More
+   Your content here...
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+### Writing Guidelines
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Structure**:
+   - Start with a clear introduction
+   - Use headings to organize content
+   - Include practical examples
+   - End with a summary or next steps
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Code Examples**:
+   ```python
+   # Use proper code blocks with language specification
+   def example():
+       return "Hello World"
+   ```
 
-## Deploy on Vercel
+3. **Formatting**:
+   - Use proper markdown syntax
+   - Include images in `/public/images/`
+   - Link to related articles
+   - Use blockquotes for important notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Best Practices**:
+   - Keep paragraphs short and focused
+   - Use bullet points for lists
+   - Include interactive examples
+   - Add debugging tips
+   - Provide practice problems
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Article Types
+
+1. **Tutorials**:
+   - Step-by-step guides
+   - Clear learning objectives
+   - Practical examples
+   - Common pitfalls
+
+2. **Concept Explanations**:
+   - Clear definitions
+   - Visual aids
+   - Real-world applications
+   - Practice problems
+
+3. **Problem-Solving**:
+   - Problem statement
+   - Solution approach
+   - Code implementation
+   - Time/space complexity
+
+### Development Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/eduvibe.git
+   cd eduvibe
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Create your article in `content/articles/`
+
+5. Preview your changes at `http://localhost:3000/articles/your-article-slug`
+
+### Pull Request Process
+
+1. Create a new branch:
+   ```bash
+   git checkout -b feature/your-article-name
+   ```
+
+2. Add your article and commit:
+   ```bash
+   git add content/articles/your-article.md
+   git commit -m "Add article: Your Article Title"
+   ```
+
+3. Push and create a pull request:
+   ```bash
+   git push origin feature/your-article-name
+   ```
+
+4. Wait for review and feedback
+
+### Review Process
+
+1. Technical review:
+   - Code examples accuracy
+   - Technical content correctness
+   - Best practices adherence
+
+2. Content review:
+   - Clarity and readability
+   - Structure and flow
+   - Examples quality
+   - Practice problems
+
+3. Style review:
+   - Markdown formatting
+   - Image quality
+   - Link validity
+   - Metadata completeness
+
+### Resources
+
+- [Markdown Guide](https://www.markdownguide.org/)
+- [Code Style Guide](https://google.github.io/styleguide/)
+- [Image Guidelines](https://example.com/image-guidelines)
+- [Article Templates](https://example.com/templates)
+
+### Need Help?
+
+- Open an issue for questions
+- Join our Discord community
+- Check existing articles for examples
+- Review the contribution guidelines
+
+---
+
+Thank you for contributing to EduVibe! Your articles help students learn and grow.

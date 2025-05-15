@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import { Metadata } from 'next'
 import matter from 'gray-matter'
+import { use } from 'react'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600 // Revalidate every hour
@@ -44,8 +45,9 @@ async function getArticleContent(slug: string): Promise<{ content: string; metad
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = await getArticleContent(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const article = await getArticleContent(slug)
   
   if (!article) {
     return {
@@ -70,12 +72,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function ArticlePage({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const article = await getArticleContent(params.slug)
+export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params)
+  const article = use(getArticleContent(slug))
 
   if (!article) {
     notFound()

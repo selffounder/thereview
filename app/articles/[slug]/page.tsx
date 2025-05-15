@@ -3,10 +3,7 @@ import { notFound } from 'next/navigation'
 import fs from 'fs'
 import path from 'path'
 
-type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+export const dynamic = 'force-dynamic'
 
 async function getArticleContent(slug: string) {
   const articlesDirectory = path.join(process.cwd(), 'content/articles')
@@ -20,7 +17,11 @@ async function getArticleContent(slug: string) {
   }
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function ArticlePage({
+  params,
+}: {
+  params: { slug: string }
+}) {
   const content = await getArticleContent(params.slug)
 
   if (!content) {

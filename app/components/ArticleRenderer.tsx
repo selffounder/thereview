@@ -73,10 +73,10 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
 
   if (error) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
-          <h2 className="text-red-800 dark:text-red-200 font-semibold">Error Loading Article</h2>
-          <p className="text-red-600 dark:text-red-300 mt-2">{error}</p>
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-xl shadow-sm">
+          <h2 className="text-red-800 dark:text-red-200 font-semibold text-xl">Error Loading Article</h2>
+          <p className="text-red-600 dark:text-red-300 mt-3">{error}</p>
         </div>
       </div>
     )
@@ -84,46 +84,52 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
 
   if (!metadata) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
-          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-8"></div>
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="animate-pulse space-y-6">
+          <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg w-3/4"></div>
+          <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/2"></div>
           <div className="space-y-4">
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-5/6"></div>
           </div>
         </div>
       </div>
     )
   }
 
+  const formatDate = (dateString: string) => {
+    const date = moment(dateString)
+    if (!date.isValid()) return dateString
+    return date.format('MMMM D, YYYY')
+  }
+
   return (
-    <article className="max-w-4xl mx-auto px-4 py-8">
-      <header className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+    <article className="max-w-4xl mx-auto px-4 py-12">
+      <header className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
               {metadata.author}
             </span>
             <span className="text-gray-300 dark:text-gray-600">•</span>
             <span className="text-sm text-gray-500 dark:text-gray-400">
-              {moment(metadata.date).format('MMMM D, YYYY')}
+              {formatDate(metadata.date)}
             </span>
           </div>
-          <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
             <PencilIcon className="h-5 w-5" />
           </button>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
           {metadata.title}
         </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300">
+        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
           {metadata.description}
         </p>
       </header>
 
-      <div className="markdown-body dark:bg-gray-900">
+      <div className="markdown-body dark:bg-gray-900 prose prose-lg dark:prose-invert max-w-none">
         <ReactMarkdown
           rehypePlugins={[
             rehypeRaw,
@@ -131,17 +137,17 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
             rehypeHighlight
           ]}
           components={{
-            h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white" {...props} />,
-            h2: ({ node, ...props }) => <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white mt-8" {...props} />,
-            h3: ({ node, ...props }) => <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white mt-6" {...props} />,
-            p: ({ node, ...props }) => <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed" {...props} />,
-            ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-4 text-gray-600 dark:text-gray-300" {...props} />,
-            ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-4 text-gray-600 dark:text-gray-300" {...props} />,
+            h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white mt-12" {...props} />,
+            h3: ({ node, ...props }) => <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white mt-10" {...props} />,
+            p: ({ node, ...props }) => <p className="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed" {...props} />,
+            ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-2" {...props} />,
+            ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-2" {...props} />,
             li: ({ node, ...props }) => <li className="mb-2" {...props} />,
             code: ({ node, className, children, ...props }) => {
               const match = /language-(\w+)/.exec(className || '')
               return match ? (
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto mb-4">
+                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto mb-6 shadow-sm">
                   <pre className="m-0">
                     <code className={`language-${match[1]}`} {...props}>
                       {children}
@@ -149,16 +155,16 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
                   </pre>
                 </div>
               ) : (
-                <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm" {...props}>
+                <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md text-sm font-mono" {...props}>
                   {children}
                 </code>
               )
             },
             blockquote: ({ node, ...props }) => (
-              <blockquote className="border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic my-4 text-gray-600 dark:text-gray-300" {...props} />
+              <blockquote className="border-l-4 border-gray-300 dark:border-gray-600 pl-6 italic my-8 text-gray-600 dark:text-gray-300 text-lg" {...props} />
             ),
             a: ({ node, ...props }) => (
-              <a className="text-blue-600 dark:text-blue-400 hover:underline" {...props} />
+              <a className="text-blue-600 dark:text-blue-400 hover:underline font-medium" {...props} />
             ),
           }}
         >
@@ -166,22 +172,22 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
         </ReactMarkdown>
       </div>
 
-      <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center space-x-6">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
               {metadata.readingTime} min read
             </span>
             <span className="text-gray-300 dark:text-gray-600">•</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
               {metadata.difficulty}
             </span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
             {metadata.tags.map((tag: string) => (
               <span
                 key={tag}
-                className="px-2 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full"
+                className="px-3 py-1.5 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 {tag}
               </span>
@@ -189,14 +195,14 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-8">
           <a
             href={`https://github.com/your-repo/edit/main/content/articles/${metadata.title.toLowerCase().replace(/\s+/g, '-')}.md`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors"
+            className="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors font-medium shadow-sm hover:shadow-md"
           >
-            <PencilIcon className="w-4 h-4 mr-2" />
+            <PencilIcon className="w-5 h-5 mr-2" />
             Edit this article
           </a>
         </div>

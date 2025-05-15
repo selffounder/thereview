@@ -7,34 +7,34 @@ import Image from 'next/image'
 const testimonials = [
   {
     id: 1,
-    name: "Amina K.",
+    name: "Arman B.",
     role: "NIS Student, Contributor",
     image: "/testimonials/student1.jpg",
-    content: "What I love most about EduVibe is that it's open-source! I actually contributed to the algorithms section by adding some practice problems I created. It's amazing to see other students using and improving my work. The community aspect makes learning so much more engaging.",
+    content: "I would love to contribute to this platform and this community. Hoping it will be something bigger.",
     rating: 5
   },
   {
     id: 2,
-    name: "Dias M.",
+    name: "Danabek M.",
     role: "NIS Graduate, Active Contributor",
     image: "/testimonials/student2.jpg",
-    content: "As someone who struggled with data structures, I found the community-contributed explanations really helpful. I've since started contributing my own notes and examples. It's rewarding to help others while reinforcing my own understanding. The collaborative nature of the platform is what sets it apart.",
+    content: "This is a great idea. Not everybody gets computer science for the first time, but this platform is a gamechanger. Excited to work on it.",
     rating: 5
   },
   {
     id: 3,
-    name: "Zarina S.",
+    name: "Mirali I.",
     role: "NIS Student, Content Creator",
     image: "/testimonials/student3.jpg",
-    content: "I was skeptical about open-source learning at first, but seeing how everyone can improve and add to the content is incredible. I've added some Python tutorials that other students found helpful, and I've learned so much from reviewing others' contributions. It's like having a study group that's always available!",
+    content: "I love the idea!",
     rating: 5
   },
   {
     id: 4,
-    name: "Arman B.",
-    role: "NIS Graduate, Community Leader",
+    name: "Alisher S.",
+    role: "NIS Student, Founder",
     image: "/testimonials/student4.jpg",
-    content: "The best part about EduVibe is that it's constantly evolving thanks to student contributions. I've helped improve several articles and even fixed some code examples. It's not just about consuming content – you can actively shape the learning experience for everyone. This collaborative approach makes learning much more meaningful.",
+    content: "I wish we had something like this back in the previous semester. I see a biiiiiig potential in this platform, and I already love to use it:).",
     rating: 5
   }
 ]
@@ -173,7 +173,7 @@ export function Testimonials() {
         {/* Open Source Call to Action */}
         <div className="mt-16 text-center">
           <a
-            href="https://github.com/your-repo"
+            href="https://github.com/selffounder/ed-vibe"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-6 py-3 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"

@@ -1,4 +1,5 @@
 import { ArticleRenderer } from '@/app/components/ArticleRenderer'
+import { notFound } from 'next/navigation'
 import fs from 'fs'
 import path from 'path'
 
@@ -8,17 +9,24 @@ interface PageProps {
   }
 }
 
-export default function ArticlePage({ params }: PageProps) {
-  // Read the markdown file
-  const filePath = path.join(process.cwd(), 'content/articles', `${params.slug}.md`)
-  const content = fs.readFileSync(filePath, 'utf8')
+async function getArticleContent(slug: string) {
+  const articlesDirectory = path.join(process.cwd(), 'content/articles')
+  const filePath = path.join(articlesDirectory, `${slug}.md`)
 
-  // For debugging
-  console.log('Content loaded:', content.substring(0, 200)) // Log first 200 chars
+  try {
+    const fileContent = await fs.promises.readFile(filePath, 'utf8')
+    return fileContent
+  } catch (error) {
+    return null
+  }
+}
 
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <ArticleRenderer content={content} />
-    </div>
-  )
+export default async function ArticlePage({ params }: PageProps) {
+  const content = await getArticleContent(params.slug)
+
+  if (!content) {
+    notFound()
+  }
+
+  return <ArticleRenderer content={content} />
 } 

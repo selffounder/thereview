@@ -3,10 +3,9 @@ import { notFound } from 'next/navigation'
 import fs from 'fs'
 import path from 'path'
 
-interface PageProps {
-  params: {
-    slug: string
-  }
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 async function getArticleContent(slug: string) {
@@ -21,7 +20,7 @@ async function getArticleContent(slug: string) {
   }
 }
 
-export default async function ArticlePage({ params }: PageProps) {
+export default async function ArticlePage({ params }: Props) {
   const content = await getArticleContent(params.slug)
 
   if (!content) {

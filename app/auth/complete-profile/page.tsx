@@ -6,28 +6,32 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 type FormData = {
-  firstName: string
-  lastName: string
-  phone: string
+  full_name: string
   bio: string
-  subjects?: string[]
+  school: string
   grade?: string
+  subjects?: string[]
+}
+
+type FormErrors = {
+  full_name?: string
+  bio?: string
   school?: string
+  grade?: string
+  subjects?: string
 }
 
 export default function CompleteProfilePage() {
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    phone: '',
+    full_name: '',
     bio: '',
-    subjects: [],
-    grade: '',
     school: '',
+    grade: '',
+    subjects: [],
   })
   const [loading, setLoading] = useState(false)
   const [userRole, setUserRole] = useState<'student' | 'teacher' | null>(null)
-  const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({})
+  const [validationErrors, setValidationErrors] = useState<FormErrors>({})
   const router = useRouter()
   const supabase = createClientComponentClient()
 
@@ -58,23 +62,26 @@ export default function CompleteProfilePage() {
   }, [supabase, router])
 
   const validateForm = (): boolean => {
-    const errors: Partial<FormData> = {}
+    const errors: FormErrors = {}
 
-    if (!formData.firstName.trim()) {
-      errors.firstName = 'First name is required'
+    if (!formData.full_name.trim()) {
+      errors.full_name = 'Full name is required'
+    } else if (formData.full_name.trim().length < 2) {
+      errors.full_name = 'Full name must be at least 2 characters'
     }
 
-    if (!formData.lastName.trim()) {
-      errors.lastName = 'Last name is required'
+    if (!formData.school.trim()) {
+      errors.school = 'School is required'
+    } else if (formData.school.trim().length < 2) {
+      errors.school = 'School name must be at least 2 characters'
     }
 
-    if (!formData.phone.trim()) {
-      errors.phone = 'Phone number is required'
+    if (formData.bio && formData.bio.length > 500) {
+      errors.bio = 'Bio must be less than 500 characters'
     }
 
-    if (!formData.bio.trim()) {
-      errors.bio = 'Bio is required'
-    }
+    // Get user role from auth metadata
+    const userRole = supabase.auth.getUser().then(({ data: { user } }) => user?.user_metadata?.role)
 
     if (userRole === 'teacher') {
       if (!formData.subjects?.length) {
@@ -83,9 +90,6 @@ export default function CompleteProfilePage() {
     } else {
       if (!formData.grade) {
         errors.grade = 'Grade is required'
-      }
-      if (!formData.school?.trim()) {
-        errors.school = 'School is required'
       }
     }
 
@@ -115,9 +119,7 @@ export default function CompleteProfilePage() {
       const { error: profileError } = await supabase
         .from('users')
         .update({
-          first_name: formData.firstName.trim(),
-          last_name: formData.lastName.trim(),
-          phone: formData.phone.trim(),
+          full_name: formData.full_name.trim(),
           bio: formData.bio.trim(),
           status: 'active',
           updated_at: now,
@@ -196,90 +198,68 @@ export default function CompleteProfilePage() {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  First Name
+                <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Full Name
                 </label>
                 <div className="mt-1">
                   <input
-                    id="firstName"
-                    name="firstName"
+                    id="full_name"
+                    name="full_name"
                     type="text"
                     required
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                    value={formData.full_name}
+                    onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                     className={`appearance-none block w-full px-3 py-2 border ${
-                      validationErrors.firstName ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
+                      validationErrors.full_name ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white sm:text-sm`}
                   />
-                  {validationErrors.firstName && (
-                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.firstName}</p>
+                  {validationErrors.full_name && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.full_name}</p>
                   )}
                 </div>
               </div>
 
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Last Name
+                <label htmlFor="bio" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Bio
                 </label>
                 <div className="mt-1">
-                  <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
+                  <textarea
+                    id="bio"
+                    name="bio"
+                    rows={4}
                     required
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                    value={formData.bio}
+                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                     className={`appearance-none block w-full px-3 py-2 border ${
-                      validationErrors.lastName ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
+                      validationErrors.bio ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white sm:text-sm`}
                   />
-                  {validationErrors.lastName && (
-                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.lastName}</p>
+                  {validationErrors.bio && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.bio}</p>
                   )}
                 </div>
               </div>
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Phone Number
+              <label htmlFor="school" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                School
               </label>
               <div className="mt-1">
                 <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
+                  id="school"
+                  name="school"
+                  type="text"
                   required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  value={formData.school}
+                  onChange={(e) => setFormData({ ...formData, school: e.target.value })}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    validationErrors.phone ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
+                    validationErrors.school ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
                   } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white sm:text-sm`}
                 />
-                {validationErrors.phone && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.phone}</p>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Bio
-              </label>
-              <div className="mt-1">
-                <textarea
-                  id="bio"
-                  name="bio"
-                  rows={4}
-                  required
-                  value={formData.bio}
-                  onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    validationErrors.bio ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white sm:text-sm`}
-                />
-                {validationErrors.bio && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.bio}</p>
+                {validationErrors.school && (
+                  <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.school}</p>
                 )}
               </div>
             </div>
@@ -351,28 +331,6 @@ export default function CompleteProfilePage() {
                     </select>
                     {validationErrors.grade && (
                       <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.grade}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="school" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    School
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="school"
-                      name="school"
-                      type="text"
-                      required
-                      value={formData.school}
-                      onChange={(e) => setFormData({ ...formData, school: e.target.value })}
-                      className={`appearance-none block w-full px-3 py-2 border ${
-                        validationErrors.school ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
-                      } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white sm:text-sm`}
-                    />
-                    {validationErrors.school && (
-                      <p className="mt-2 text-sm text-red-600 dark:text-red-400">{validationErrors.school}</p>
                     )}
                   </div>
                 </div>

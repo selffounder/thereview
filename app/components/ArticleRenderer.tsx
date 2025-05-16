@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import matter from 'gray-matter'
-import moment from 'moment'
 import { PencilIcon } from '@heroicons/react/24/outline'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
@@ -14,60 +13,17 @@ interface ArticleRendererProps {
   content: string
 }
 
-interface ArticleMetadata {
-  title: string
-  description: string
-  author: string
-  date: string
-  tags: string[]
-  difficulty: string
-  readingTime: string
-  contributors: string[]
-  lastUpdated: string
-}
-
 export function ArticleRenderer({ content }: ArticleRendererProps) {
   const [markdownContent, setMarkdownContent] = useState('')
-  const [metadata, setMetadata] = useState<ArticleMetadata | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     try {
-      const { data, content: markdownContent } = matter(content)
-      
-      const tags = typeof data.tags === 'string' 
-        ? data.tags.split(',').map(tag => tag.trim())
-        : Array.isArray(data.tags) 
-          ? data.tags 
-          : []
-
-      setMetadata({
-        title: data.title || '',
-        description: data.description || '',
-        author: data.author || '',
-        date: data.date || '',
-        tags: tags,
-        difficulty: data.difficulty || '',
-        readingTime: data.readingTime || '',
-        contributors: Array.isArray(data.contributors) ? data.contributors : [],
-        lastUpdated: data.lastUpdated || data.date || ''
-      })
-
+      const { content: markdownContent } = matter(content)
       setMarkdownContent(markdownContent)
     } catch (error) {
       console.error('Error processing content:', error)
       setError(error instanceof Error ? error.message : 'Unknown error occurred')
-      setMetadata({
-        title: 'Error Loading Article',
-        description: 'There was an error loading this article.',
-        author: '',
-        date: '',
-        tags: [],
-        difficulty: '',
-        readingTime: '',
-        contributors: [],
-        lastUpdated: ''
-      })
     }
   }, [content])
 
@@ -82,7 +38,7 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
     )
   }
 
-  if (!metadata) {
+  if (!markdownContent) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="animate-pulse space-y-6">
@@ -98,38 +54,9 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
     )
   }
 
-  const formatDate = (dateString: string) => {
-    const date = moment(dateString)
-    if (!date.isValid()) return dateString
-    return date.format('MMMM D, YYYY')
-  }
-
   return (
     <article className="max-w-4xl mx-auto px-4 py-12">
-      <header className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-3">
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-              {metadata.author}
-            </span>
-            <span className="text-gray-300 dark:text-gray-600">•</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              {formatDate(metadata.date)}
-            </span>
-          </div>
-          <button className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
-            <PencilIcon className="h-5 w-5" />
-          </button>
-        </div>
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-          {metadata.title}
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          {metadata.description}
-        </p>
-      </header>
-
-      <div className="markdown-body dark:bg-gray-900 prose prose-lg dark:prose-invert max-w-none">
+      <div className="prose dark:prose-invert max-w-none">
         <ReactMarkdown
           rehypePlugins={[
             rehypeRaw,
@@ -137,17 +64,46 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
             rehypeHighlight
           ]}
           components={{
-            h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white" {...props} />,
-            h2: ({ node, ...props }) => <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white mt-12" {...props} />,
-            h3: ({ node, ...props }) => <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white mt-10" {...props} />,
-            p: ({ node, ...props }) => <p className="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed" {...props} />,
-            ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-2" {...props} />,
-            ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-2" {...props} />,
-            li: ({ node, ...props }) => <li className="mb-2" {...props} />,
+            h1: ({ node, ...props }) => (
+              <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-4" {...props} />
+            ),
+            h2: ({ node, ...props }) => (
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white mt-12 border-b border-gray-200 dark:border-gray-700 pb-3" {...props} />
+            ),
+            h3: ({ node, ...props }) => (
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white mt-10" {...props} />
+            ),
+            p: ({ node, ...props }) => (
+              <p className="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed text-lg" {...props} />
+            ),
+            ul: ({ node, ...props }) => (
+              <ul className="list-disc pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-3 text-lg" {...props} />
+            ),
+            ol: ({ node, ...props }) => (
+              <ol className="list-decimal pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-3 text-lg" {...props} />
+            ),
+            li: ({ node, ...props }) => (
+              <li className="mb-2" {...props} />
+            ),
             code: ({ node, className, children, ...props }) => {
               const match = /language-(\w+)/.exec(className || '')
               return match ? (
                 <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto mb-6 shadow-sm">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {match[1]}
+                    </span>
+                    <button 
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                      onClick={() => {
+                        navigator.clipboard.writeText(String(children))
+                      }}
+                    >
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                      </svg>
+                    </button>
+                  </div>
                   <pre className="m-0">
                     <code className={`language-${match[1]}`} {...props}>
                       {children}
@@ -161,52 +117,32 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
               )
             },
             blockquote: ({ node, ...props }) => (
-              <blockquote className="border-l-4 border-gray-300 dark:border-gray-600 pl-6 italic my-8 text-gray-600 dark:text-gray-300 text-lg" {...props} />
+              <blockquote className="border-l-4 border-green-500 dark:border-green-400 pl-6 italic my-8 text-gray-600 dark:text-gray-300 text-lg bg-green-50 dark:bg-green-900/20 py-4 px-6 rounded-r-lg" {...props} />
             ),
             a: ({ node, ...props }) => (
-              <a className="text-blue-600 dark:text-blue-400 hover:underline font-medium" {...props} />
+              <a className="text-green-600 dark:text-green-400 hover:underline font-medium" {...props} />
+            ),
+            img: ({ node, ...props }) => (
+              <div className="my-8">
+                <img className="rounded-lg shadow-md" {...props} />
+              </div>
+            ),
+            table: ({ node, ...props }) => (
+              <div className="overflow-x-auto my-8">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700" {...props} />
+              </div>
+            ),
+            th: ({ node, ...props }) => (
+              <th className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider" {...props} />
+            ),
+            td: ({ node, ...props }) => (
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300" {...props} />
             ),
           }}
         >
           {markdownContent}
         </ReactMarkdown>
       </div>
-
-      <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-              {metadata.readingTime} min read
-            </span>
-            <span className="text-gray-300 dark:text-gray-600">•</span>
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-              {metadata.difficulty}
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            {metadata.tags.map((tag: string) => (
-              <span
-                key={tag}
-                className="px-3 py-1.5 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <a
-            href={`https://github.com/your-repo/edit/main/content/articles/${metadata.title.toLowerCase().replace(/\s+/g, '-')}.md`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors font-medium shadow-sm hover:shadow-md"
-          >
-            <PencilIcon className="w-5 h-5 mr-2" />
-            Edit this article
-          </a>
-        </div>
-      </footer>
     </article>
   )
 } 

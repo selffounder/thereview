@@ -110,7 +110,7 @@ def find_first_occurrence(arr, target):
 <div class="contribution-info">
   <p>Last updated: March 21, 2024</p>
   <p>Contributors: Amina K., Dias M., Zarina S.</p>
-  <a href="https://github.com/your-repo/edit/main/content/articles/binary-search.md" class="contribute-button">
+  <a href="https://github.com/selffounder/ed-vibe/edit/main/content/articles/binary-search.md" class="contribute-button">
     Edit this article
   </a>
 </div> 

@@ -1,11 +1,8 @@
 'use client'
 
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import Link from 'next/link'
 import moment from 'moment'
-import { Header } from "../components/Header";
+import { Header } from "../components/Header"
 import { useState, useEffect } from 'react'
 
 interface Article {
@@ -19,46 +16,25 @@ interface Article {
   readingTime: string
 }
 
-async function getArticles(): Promise<Article[]> {
-  const articlesDirectory = path.join(process.cwd(), 'content/articles')
-  const files = await fs.promises.readdir(articlesDirectory)
-
-  const articles = await Promise.all(
-    files
-      .filter(file => file.endsWith('.md'))
-      .map(async file => {
-        const filePath = path.join(articlesDirectory, file)
-        const fileContent = await fs.promises.readFile(filePath, 'utf8')
-        const { data } = matter(fileContent)
-        const slug = file.replace(/\.md$/, '')
-
-        return {
-          slug,
-          title: data.title || '',
-          description: data.description || '',
-          author: data.author || '',
-          date: data.date || '',
-          tags: Array.isArray(data.tags) ? data.tags : [],
-          difficulty: data.difficulty || '',
-          readingTime: data.readingTime || ''
-        }
-      })
-  )
-
-  return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-}
-
 export default function ExplorePage() {
   const [articles, setArticles] = useState<Article[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [activeFilter, setActiveFilter] = useState('all')
   const [filteredArticles, setFilteredArticles] = useState<Article[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const fetchedArticles = await getArticles()
-      setArticles(fetchedArticles)
-      setFilteredArticles(fetchedArticles)
+      try {
+        const response = await fetch('/api/articles')
+        const data = await response.json()
+        setArticles(data)
+        setFilteredArticles(data)
+      } catch (error) {
+        console.error('Failed to fetch articles:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
     fetchArticles()
   }, [])
@@ -84,6 +60,19 @@ export default function ExplorePage() {
 
     setFilteredArticles(filtered)
   }, [searchQuery, activeFilter, articles])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900">
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <p className="text-gray-600 dark:text-gray-300">Loading articles...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">

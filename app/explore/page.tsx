@@ -1,11 +1,12 @@
+'use client'
+
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import Link from 'next/link'
 import moment from 'moment'
 import { Header } from "../components/Header";
-
-
+import { useState, useEffect } from 'react'
 
 interface Article {
   slug: string
@@ -47,12 +48,46 @@ async function getArticles(): Promise<Article[]> {
   return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
-export default async function ExplorePage() {
-  const articles = await getArticles()
+export default function ExplorePage() {
+  const [articles, setArticles] = useState<Article[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([])
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const fetchedArticles = await getArticles()
+      setArticles(fetchedArticles)
+      setFilteredArticles(fetchedArticles)
+    }
+    fetchArticles()
+  }, [])
+
+  useEffect(() => {
+    let filtered = articles
+
+    // Apply search filter
+    if (searchQuery) {
+      filtered = filtered.filter(article =>
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    }
+
+    // Apply category filter
+    if (activeFilter !== 'all') {
+      filtered = filtered.filter(article =>
+        article.tags.includes(activeFilter)
+      )
+    }
+
+    setFilteredArticles(filtered)
+  }, [searchQuery, activeFilter, articles])
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-         <Header />
+      <Header />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -63,25 +98,64 @@ export default async function ExplorePage() {
           </p>
         </div>
 
+        {/* Search Bar */}
+        <div className="mb-8">
+          <input
+            type="text"
+            placeholder="Search articles..."
+            className="w-full max-w-2xl mx-auto px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
         {/* Filters */}
         <div className="mb-8 flex flex-wrap gap-4 justify-center">
-          <button className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
+          <button
+            onClick={() => setActiveFilter('all')}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              activeFilter === 'all'
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
+          >
             All
           </button>
-          <button className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <button
+            onClick={() => setActiveFilter('Algorithms')}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              activeFilter === 'Algorithms'
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
+          >
             Algorithms
           </button>
-          <button className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <button
+            onClick={() => setActiveFilter('Data Structures')}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              activeFilter === 'Data Structures'
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
+          >
             Data Structures
           </button>
-          <button className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <button
+            onClick={() => setActiveFilter('Programming')}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              activeFilter === 'Programming'
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }`}
+          >
             Programming
           </button>
         </div>
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article) => (
+          {filteredArticles.map((article) => (
             <Link
               key={article.slug}
               href={`/articles/${article.slug}`}

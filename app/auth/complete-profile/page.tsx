@@ -61,7 +61,7 @@ export default function CompleteProfilePage() {
     getUserRole()
   }, [supabase, router])
 
-  const validateForm = (): boolean => {
+  const validateForm = async (): Promise<boolean> => {
     const errors: FormErrors = {}
 
     if (!formData.full_name.trim()) {
@@ -81,9 +81,10 @@ export default function CompleteProfilePage() {
     }
 
     // Get user role from auth metadata
-    const userRole = supabase.auth.getUser().then(({ data: { user } }) => user?.user_metadata?.role)
+    const { data: { user } } = await supabase.auth.getUser()
+    const role = user?.user_metadata?.role
 
-    if (userRole === 'teacher') {
+    if (role === 'teacher') {
       if (!formData.subjects?.length) {
         errors.subjects = 'At least one subject is required'
       }
@@ -102,7 +103,7 @@ export default function CompleteProfilePage() {
     setLoading(true)
 
     try {
-      if (!validateForm()) {
+      if (!(await validateForm())) {
         toast.error('Please fix the validation errors')
         return
       }
@@ -113,16 +114,14 @@ export default function CompleteProfilePage() {
         return
       }
 
-      const now = new Date().toISOString()
-
       // Update user profile
       const { error: profileError } = await supabase
-        .from('users')
+        .from('profiles')
         .update({
           full_name: formData.full_name.trim(),
           bio: formData.bio.trim(),
-          status: 'active',
-          updated_at: now,
+          school: formData.school.trim(),
+          ...(userRole === 'teacher' ? { subjects: formData.subjects } : { grade: formData.grade }),
         })
         .eq('id', user.id)
 
@@ -130,38 +129,6 @@ export default function CompleteProfilePage() {
         console.error('Profile update error:', profileError)
         toast.error('Failed to update profile')
         return
-      }
-
-      // Update role-specific profile
-      if (userRole === 'teacher') {
-        const { error: teacherError } = await supabase
-          .from('teachers')
-          .update({
-            subjects: formData.subjects,
-            updated_at: now,
-          })
-          .eq('user_id', user.id)
-
-        if (teacherError) {
-          console.error('Teacher profile update error:', teacherError)
-          toast.error('Failed to update teacher profile')
-          return
-        }
-      } else {
-        const { error: studentError } = await supabase
-          .from('students')
-          .update({
-            grade: formData.grade,
-            school: formData.school?.trim(),
-            updated_at: now,
-          })
-          .eq('user_id', user.id)
-
-        if (studentError) {
-          console.error('Student profile update error:', studentError)
-          toast.error('Failed to update student profile')
-          return
-        }
       }
 
       toast.success('Profile completed successfully!')

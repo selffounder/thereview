@@ -79,8 +79,8 @@ We welcome contributions from the community! Here's how you can contribute an ar
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/eduvibe.git
-   cd eduvibe
+   git clone https://github.com/selffounder/thenisreview.git
+   cd thenisreview
    ```
 
 2. Install dependencies:

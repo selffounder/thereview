@@ -16,7 +16,7 @@ export function Header() {
             <div className="relative">
               <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 opacity-0 group-hover:opacity-30 blur transition duration-300 group-hover:scale-110" />
               <span className="relative text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
-                EduVibe
+                The NIS Review
               </span>
             </div>
           </Link>

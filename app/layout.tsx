@@ -7,7 +7,7 @@ import './styles/markdown.css'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "EduVibe - NIS Computer Science Learning Platform",
+  title: "The NIS Review - NIS Computer Science Learning Platform",
   description: "Master Computer Science at NIS with our comprehensive learning platform",
 };
 

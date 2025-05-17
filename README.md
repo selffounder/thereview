@@ -1,4 +1,4 @@
-# EduVibe - NIS Computer Science Learning Platform
+# The NIS Review - NIS Computer Science Learning Platform
 
 A modern learning platform for NIS students to master Computer Science concepts through well-structured articles and interactive examples.
 
@@ -79,8 +79,8 @@ We welcome contributions from the community! Here's how you can contribute an ar
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/eduvibe.git
-   cd eduvibe
+   git clone https://github.com/your-username/thenisreview.git
+   cd thenisreview
    ```
 
 2. Install dependencies:
@@ -152,4 +152,4 @@ We welcome contributions from the community! Here's how you can contribute an ar
 
 ---
 
-Thank you for contributing to EduVibe! Your articles help students learn and grow.
+Thank you for contributing to The NIS Review! Your articles help students learn and grow.

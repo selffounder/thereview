@@ -191,7 +191,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">Trusted by NIS Students</h2>
-              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">Join your peers who are already learning with EduVibe</p>
+              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">Join your peers who are already learning with The NIS Review</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <div className="text-center p-3 sm:p-5 rounded-lg bg-white dark:bg-gray-800 border border-green-100 dark:border-green-700 hover:shadow transition-all duration-200">

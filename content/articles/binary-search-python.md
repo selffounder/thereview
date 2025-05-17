@@ -1,7 +1,7 @@
 ---
 title: "Binary Search in Python: A Beginner's Guide"
 description: "Learn binary search in Python with step-by-step explanations and interactive examples"
-author: "Alisher S."
+author: "Alisher S., Ainagul Amangeldinovna Ermekova"
 date: "2024-03-21"
 tags: ["python", "algorithms", "beginner", "searching"]
 difficulty: "beginner"

@@ -1,6 +1,6 @@
 # The NIS Review - NIS Computer Science Learning Platform
 
-A modern learning platform for NIS students to master Computer Science concepts through well-structured articles and interactive examples.
+We want to become the next BZFAR. Stay with us, and let's change the entire **NIS Computer Science x Programming **
 
 ## Contributing Articles
 
@@ -79,8 +79,8 @@ We welcome contributions from the community! Here's how you can contribute an ar
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/thenisreview.git
-   cd thenisreview
+   git clone https://github.com/your-username/eduvibe.git
+   cd eduvibe
    ```
 
 2. Install dependencies:

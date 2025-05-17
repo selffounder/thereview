@@ -1,12 +1,12 @@
 ---
 title: "Binary Search in Python: A Beginner's Guide"
 description: "Learn binary search in Python with step-by-step explanations and interactive examples"
-author: "Alisher S., Ainagul Amangeldinovna Ermekova"
+author: "Alisher S."
 date: "2024-03-21"
-tags: ["python", "algorithms", "beginner", "searching"]
+tags: ["programming", "algorithms", "beginner", "python"]
 difficulty: "beginner"
 readingTime: "8 min"
-contributors: ["Dias M."]
+contributors: ["Alisher S."]
 lastUpdated: "2024-03-21"
 ---
 
@@ -196,9 +196,9 @@ Use binary search when:
 *This article is open-source. Feel free to contribute by improving the content, adding more examples, or fixing any errors.*
 
 <div class="contribution-info">
-  <p>Last updated: March 21, 2024</p>
-  <p>Contributors: Amina K., Dias M.</p>
-  <a href="https://github.com/selffounder/ed-vibe/edit/main/content/articles/binary-search-python.md" class="contribute-button">
+  <p>Last updated: May 15, 2025</p>
+  <p>Contributors: Alisher S.</p>
+  <a href="https://github.com/selffounder/thenisreview/edit/main/content/articles/binary-search-python.md" class="contribute-button">
     Edit this article
   </a>
 </div> 

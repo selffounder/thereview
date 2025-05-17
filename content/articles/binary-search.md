@@ -1,12 +1,12 @@
 ---
 title: "Understanding Binary Search Algorithm"
 description: "A comprehensive guide to binary search algorithm with examples and practice problems"
-author: "Amina K."
+author: "Alisher S."
 date: "2024-03-20"
-tags: ["algorithms", "searching", "binary-search", "python"]
+tags: ["11thgrade", "algorithms", "binary-search", "python"]
 difficulty: "intermediate"
 readingTime: "10 min"
-contributors: ["Dias M.", "Zarina S."]
+contributors: ["Alisher S."]
 lastUpdated: "2024-03-21"
 ---
 
@@ -108,9 +108,9 @@ def find_first_occurrence(arr, target):
 *This article is open-source. Feel free to contribute by improving the content, adding more examples, or fixing any errors.*
 
 <div class="contribution-info">
-  <p>Last updated: March 21, 2024</p>
-  <p>Contributors: Amina K., Dias M., Zarina S.</p>
-  <a href="https://github.com/selffounder/ed-vibe/edit/main/content/articles/binary-search.md" class="contribute-button">
+  <p>Last updated: May 15, 2025</p>
+  <p>Contributors: Alisher S.</p>
+  <a href="https://github.com/selffounder/thenisreview/edit/main/content/articles/binary-search.md" class="contribute-button">
     Edit this article
   </a>
 </div> 

@@ -54,7 +54,7 @@ export default function ExplorePage() {
     // Apply category filter
     if (activeFilter !== 'all') {
       filtered = filtered.filter(article =>
-        article.tags.includes(activeFilter)
+        article.tags.map(tag => tag.toLowerCase()).includes(activeFilter.toLowerCase())
       )
     }
 
@@ -111,24 +111,24 @@ export default function ExplorePage() {
             All
           </button>
           <button
-            onClick={() => setActiveFilter('Algorithms')}
+            onClick={() => setActiveFilter('11thgrade')}
             className={`px-4 py-2 rounded-lg transition-colors ${
-              activeFilter === 'Algorithms'
+              activeFilter === '11thgrade'
                 ? 'bg-green-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
-            Algorithms
+            11th Grade Computer Science
           </button>
           <button
-            onClick={() => setActiveFilter('Data Structures')}
+            onClick={() => setActiveFilter('12thgrade')}
             className={`px-4 py-2 rounded-lg transition-colors ${
-              activeFilter === 'Data Structures'
+              activeFilter === '12thgrade'
                 ? 'bg-green-600 text-white'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
-            Data Structures
+            12th Grade Computer Science
           </button>
           <button
             onClick={() => setActiveFilter('Programming')}

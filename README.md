@@ -146,10 +146,11 @@ We welcome contributions from the community! Here's how you can contribute an ar
 ### Need Help?
 
 - Open an issue for questions
-- Join our Discord community
+- Join our [Telegram community](https://t.me/thenisreview)
 - Check existing articles for examples
 - Review the contribution guidelines
 
 ---
 
 Thank you for contributing to The NIS Review! Your articles help students learn and grow.
+

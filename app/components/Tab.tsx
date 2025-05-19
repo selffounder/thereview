@@ -1,7 +1,7 @@
 import React, { useState, useRef, KeyboardEvent } from "react";
 import { Play, Maximize2, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea as ShadTextarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const languageToCompilerId = {
@@ -15,21 +15,31 @@ export interface Task {
   id: string;
   title: string;
   description: string;
+  difficulty: string;
+  testCases: {
+    input: { arr: number[]; target: number };
+    output: number;
+    explanation: string;
+  }[];
+  hints: string[];
   starterCode: Record<string, string>;
 }
 
 interface TabProps {
   task: Task;
   initialLanguage?: "python" | "cpp" | "php" | "java";
+  onComplete?: () => void;
+  testCases: Task['testCases'];
 }
 
-export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python" }) => {
+export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python", onComplete, testCases }) => {
   const [language, setLanguage] = useState(initialLanguage);
   const [code, setCode] = useState(task.starterCode[initialLanguage]);
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
+  const [testResults, setTestResults] = useState<{ passed: boolean; output: string }[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleLanguageChange = (lang: string) => {
@@ -52,6 +62,22 @@ export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python" }) =>
     }
   };
 
+  const getFileName = () => {
+    switch (language) {
+      case "python": return "main.py";
+      case "cpp": return "main.cpp";
+      case "php": return "main.php";
+      case "java": return "Main.java";
+      default: return "main";
+    }
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      handleRun();
+    }
+  };
+
   const handleRun = async () => {
     setIsLoading(true);
     setOutput('Running...');
@@ -67,7 +93,7 @@ export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python" }) =>
         body: JSON.stringify({
           language: compilerId,
           stdin: input,
-          files: [{ name: 'main', content: code }]
+          files: [{ name: getFileName(), content: code }]
         })
       });
       const data = await response.json();
@@ -76,6 +102,46 @@ export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python" }) =>
       setOutput(`Error executing code: ${error.message}`);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const runTests = async () => {
+    setIsLoading(true);
+    setTestResults([]);
+    const results = [];
+
+    for (const testCase of testCases) {
+      try {
+        const compilerId = languageToCompilerId[language];
+        const testInput = JSON.stringify(testCase.input);
+        const response = await fetch('https://onecompiler-apis.p.rapidapi.com/api/v1/run', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPIDAPI_KEY || '',
+            'X-RapidAPI-Host': 'onecompiler-apis.p.rapidapi.com'
+          },
+          body: JSON.stringify({
+            language: compilerId,
+            stdin: testInput,
+            files: [{ name: getFileName(), content: code }]
+          })
+        });
+        const data = await response.json();
+        const output = data.stdout?.trim() || data.stderr || data.error || 'No output received';
+        const passed = parseInt(output) === testCase.output;
+        results.push({ passed, output });
+      } catch (error: any) {
+        results.push({ passed: false, output: `Error: ${error.message}` });
+      }
+    }
+
+    setTestResults(results);
+    setIsLoading(false);
+
+    // If all tests passed, call onComplete
+    if (results.every(r => r.passed) && onComplete) {
+      onComplete();
     }
   };
 
@@ -109,7 +175,7 @@ export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python" }) =>
             </SelectContent>
           </Select>
         </div>
-        <Textarea
+        <ShadTextarea
           ref={textareaRef}
           value={code}
           onChange={e => setCode(e.target.value)}
@@ -121,26 +187,33 @@ export const Tab: React.FC<TabProps> = ({ task, initialLanguage = "python" }) =>
       </div>
       <div className="w-full md:w-[340px] max-w-[400px] flex flex-col gap-4">
         <div>
-          <div className="text-xs font-semibold text-muted-foreground mb-1">STDIN</div>
-          <Input
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="w-full bg-background border border-border text-sm font-mono px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-            placeholder="Input for the program (Optional)"
-          />
-        </div>
-        <div>
-          <div className="text-sm font-semibold text-primary mb-1">Output:</div>
-          <div className="bg-background border border-border rounded-md px-3 py-2 min-h-[120px] font-mono text-sm text-foreground whitespace-pre-wrap">
-            {output ? output : <span className="text-muted-foreground">Click on RUN button to see the output</span>}
+          <div className="text-xs font-semibold text-muted-foreground mb-1">Test Cases</div>
+          <div className="space-y-2">
+            {testCases.map((testCase, index) => (
+              <div key={index} className="p-3 bg-background border border-border rounded-md">
+                <div className="text-sm font-medium mb-1">Test Case {index + 1}</div>
+                <div className="text-xs text-muted-foreground mb-1">
+                  Input: {JSON.stringify(testCase.input)}
+                </div>
+                <div className="text-xs text-muted-foreground mb-1">
+                  Expected: {testCase.output}
+                </div>
+                {testResults[index] && (
+                  <div className={`text-xs ${testResults[index].passed ? 'text-green-600' : 'text-red-600'}`}>
+                    {testResults[index].passed ? '✓ Passed' : '✗ Failed'}
+                    <div className="text-muted-foreground">Output: {testResults[index].output}</div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
         <button
-          onClick={handleRun}
+          onClick={runTests}
           disabled={isLoading}
           className="w-full h-12 mt-2 text-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
         >
-          <Play className="w-5 h-5" /> {isLoading ? 'Running...' : 'Run Code'}
+          <Play className="w-5 h-5" /> {isLoading ? 'Running Tests...' : 'Run Tests'}
         </button>
       </div>
     </div>

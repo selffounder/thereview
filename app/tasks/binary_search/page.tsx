@@ -181,25 +181,28 @@ export default function CodeEditorPage() {
               </span>
               <button
                 onClick={() => toggleHint(task.id)}
-                className="text-sm text-blue-600 hover:text-blue-800"
+                className="text-sm text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 rounded transition"
+                style={{boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)'}}
               >
                 {showHints[task.id] ? 'Hide Hints' : 'Show Hints'}
               </button>
             </div>
             {showHints[task.id] && (
-              <div className="mb-4 p-4 bg-blue-50 rounded-lg">
-                <h4 className="font-semibold mb-2">Hints:</h4>
-                <ul className="list-disc list-inside space-y-1">
-                  {task.hints.map((hint, index) => (
-                    <li key={index} className="text-sm text-gray-700">{hint}</li>
-                  ))}
-                </ul>
+              <div className="mb-4 p-4 bg-muted border border-border rounded-lg flex items-start gap-3">
+                <svg className="w-5 h-5 text-blue-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" /></svg>
+                <div>
+                  <h4 className="font-semibold mb-1 text-blue-900">Hints</h4>
+                  <ul className="list-disc list-inside space-y-1">
+                    {task.hints.map((hint, index) => (
+                      <li key={index} className="text-sm text-blue-900/90">{hint}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
             <Tab 
               task={task} 
               onComplete={() => handleTaskComplete(task.id)}
-              testCases={task.testCases}
             />
           </div>
         ))}

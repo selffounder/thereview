@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Header } from "./components/Header";
 import { QuoteGenerator } from "./components/QuoteGenerator";
 import { Testimonials } from './components/Testimonials'
+import { FeatureShowcase } from "./components/FeatureShowcase";
 
 export default function Home() {
   return (
@@ -82,6 +83,30 @@ export default function Home() {
           </div>
         </section>
 
+        
+        <FeatureShowcase
+          videoSrc="/demo2.mp4"
+          headline="Read and edit articles."
+          subheadline={
+            <>You can contribute to learning without knowing code, just writing documents in GitHub repository.</>
+          }
+          cta={{ label: "Contribute on GitHub", href: "https://github.com/selffounder/thenisreview" }}
+          reverse
+        />
+        <FeatureShowcase
+          videoSrc="/demo3.mp4"
+          headline="Solve problems and enhance your learning"
+          subheadline={
+            <>
+              You can try this in our playground.<br />
+              <span className="text-gray-500 dark:text-gray-300">Beta!</span>
+            </>
+          }
+          cta={{ label: "Try in Playground", href: "https://thenisreview.vercel.app/playground" }}
+        />
+
+       
+
         <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
@@ -133,53 +158,6 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-white dark:from-gray-800 dark:to-gray-900">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">Key Topics Covered</h2>
-              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">Essential Computer Science concepts for NIS students</p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-              <div className="group bg-white dark:bg-gray-800 p-3 sm:p-5 rounded-lg border border-green-100 dark:border-green-700 hover:shadow transition-all duration-200">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center mb-2 sm:mb-3 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                  </svg>
-                </div>
-                <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-white mb-1">Algorithms</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Sorting, Searching, Dynamic Programming</div>
-              </div>
-              <div className="group bg-white dark:bg-gray-800 p-3 sm:p-5 rounded-lg border border-green-100 dark:border-green-700 hover:shadow transition-all duration-200">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center mb-2 sm:mb-3 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                  </svg>
-                </div>
-                <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-white mb-1">Data Structures</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Arrays, Lists, Trees, Graphs</div>
-              </div>
-              <div className="group bg-white dark:bg-gray-800 p-3 sm:p-5 rounded-lg border border-green-100 dark:border-green-700 hover:shadow transition-all duration-200">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center mb-2 sm:mb-3 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
-                </div>
-                <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-white mb-1">Programming</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Python, Java, C++</div>
-              </div>
-              <div className="group bg-white dark:bg-gray-800 p-3 sm:p-5 rounded-lg border border-green-100 dark:border-green-700 hover:shadow transition-all duration-200">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-100 dark:bg-green-900 rounded-md flex items-center justify-center mb-2 sm:mb-3 group-hover:bg-green-500 group-hover:text-white transition-colors">
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div className="font-medium text-sm sm:text-base text-gray-900 dark:text-white mb-1">Web Development</div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">HTML, CSS, JavaScript</div>
               </div>
             </div>
           </div>

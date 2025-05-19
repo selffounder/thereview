@@ -120,3 +120,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+html, body {
+  font-family: 'Inter', 'Satoshi', sans-serif;
+}

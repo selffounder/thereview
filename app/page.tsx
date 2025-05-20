@@ -22,7 +22,7 @@ export default function Home() {
           <div className="relative h-full max-w-5xl mx-auto flex flex-col justify-center">
             <div className="text-center">
               <div className="inline-flex items-center px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs sm:text-sm font-medium mb-4 sm:mb-6 shadow-sm">
-                <span className="mr-1.5 sm:mr-2">✨</span> For NIS Students
+                <span className="mr-1.5 sm:mr-2">✨</span> Now with compilers!
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 dark:from-green-400 dark:via-emerald-400 dark:to-green-400">

@@ -123,7 +123,7 @@ export default function PlaygroundPage() {
         </div>
         {/* Title */}
         <div className="flex-1 text-center">
-          <span className="text-lg font-semibold text-[#5b5fc7] dark:text-green-300 tracking-wide transition-colors duration-300">Python Hello World</span>
+          <span className="text-lg font-semibold text-[#5b5fc7] dark:text-green-300 tracking-wide transition-colors duration-300">Beta</span>
         </div>
         {/* Language dropdown and Run button */}
         <div className="flex items-center gap-2">

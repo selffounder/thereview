@@ -1,5 +1,7 @@
 # The NIS Review - NIS Computer Science Learning Platform
 
+BZFAR is shit
+
 We want to become the next BZFAR. Stay with us, and let's change the entire **NIS Computer Science x Programming **
 
 ## Contributing Articles

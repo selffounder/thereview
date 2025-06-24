@@ -67,7 +67,7 @@ export function Testimonials() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-900 text-green-400 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-900 text-blue-400 text-sm font-medium mb-4">
             <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -85,17 +85,17 @@ export function Testimonials() {
           {/* Navigation Buttons */}
           <button
             onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-2 rounded-full bg-gray-800 shadow-lg border border-green-700 hover:bg-green-900/20 transition-all duration-200"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-2 rounded-full bg-gray-800 shadow-lg border border-blue-700 hover:bg-blue-900/20 transition-all duration-200"
           >
-            <svg className="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-2 rounded-full bg-gray-800 shadow-lg border border-green-700 hover:bg-green-900/20 transition-all duration-200"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-2 rounded-full bg-gray-800 shadow-lg border border-blue-700 hover:bg-blue-900/20 transition-all duration-200"
           >
-            <svg className="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -111,11 +111,11 @@ export function Testimonials() {
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0"
               >
-                <div className="bg-gray-900 rounded-2xl p-8 shadow-lg border border-green-700 h-full">
+                <div className="bg-gray-900 rounded-2xl p-8 shadow-lg border border-blue-700 h-full">
                   <div className="flex flex-col items-center text-center">
                     <div className="relative w-20 h-20 mb-6">
-                      <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full opacity-20 blur-xl" />
-                      <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-green-700">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full opacity-20 blur-xl" />
+                      <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-blue-700">
                         <Image
                           src={testimonials[currentIndex].image}
                           alt={testimonials[currentIndex].name}
@@ -139,10 +139,10 @@ export function Testimonials() {
                     <blockquote className="text-xl text-gray-600 dark:text-gray-300 mb-6">
                       "{testimonials[currentIndex].content}"
                     </blockquote>
-                    <div className="font-semibold text-lg text-gray-900 dark:text-white">
+                    <div className="font-semibold text-lg text-white">
                       {testimonials[currentIndex].name}
                     </div>
-                    <div className="text-sm text-green-600 dark:text-green-400">
+                    <div className="text-sm text-blue-400">
                       {testimonials[currentIndex].role}
                     </div>
                   </div>
@@ -162,8 +162,8 @@ export function Testimonials() {
                 }}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
                   index === currentIndex
-                    ? 'bg-green-600 dark:bg-green-400 w-8'
-                    : 'bg-green-200 dark:bg-green-700'
+                    ? 'bg-blue-600 w-8'
+                    : 'bg-blue-700'
                 }`}
               />
             ))}

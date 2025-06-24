@@ -42,11 +42,11 @@ function ArticleHeader({ metadata }: { metadata: ArticleMetadata }) {
     <div className="bg-black">
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="flex items-center space-x-2 text-sm text-gray-400 mb-6">
-          <Link href="/" className="hover:text-green-400 transition-colors">
+          <Link href="/" className="hover:text-blue-400 transition-colors">
             Home
           </Link>
           <span>/</span>
-          <Link href="/explore" className="hover:text-green-400 transition-colors">
+          <Link href="/explore" className="hover:text-blue-400 transition-colors">
             Articles
           </Link>
           <span>/</span>
@@ -56,7 +56,7 @@ function ArticleHeader({ metadata }: { metadata: ArticleMetadata }) {
         <header className="mb-12">
           <div className="flex items-center space-x-4 mb-6">
             {metadata.difficulty && (
-              <span className="px-3 py-1 text-sm font-medium bg-green-900/50 text-green-300 rounded-full">
+              <span className="px-3 py-1 text-sm font-medium bg-blue-900/50 text-blue-300 rounded-full">
                 {metadata.difficulty}
               </span>
             )}
@@ -77,7 +77,7 @@ function ArticleHeader({ metadata }: { metadata: ArticleMetadata }) {
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0 mb-8">
             {/* Authors/Contributors Section */}
             <div className="flex items-center space-x-2">
-              <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               <span className="text-lg font-medium text-gray-200">
@@ -88,7 +88,7 @@ function ArticleHeader({ metadata }: { metadata: ArticleMetadata }) {
             {/* Reading Time Section */}
             {metadata.readingTime && (
               <div className="flex items-center space-x-2">
-                <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span className="text-lg font-medium text-gray-200">
@@ -99,8 +99,8 @@ function ArticleHeader({ metadata }: { metadata: ArticleMetadata }) {
 
             {/* Date Section */}
             <div className="flex items-center space-x-2">
-              <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z" />
+              <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <span className="text-lg font-medium text-gray-200">
                 {formatDate(metadata.date)}

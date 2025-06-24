@@ -92,7 +92,7 @@ export default function ExplorePage() {
           <input
             type="text"
             placeholder="Search articles..."
-            className="w-full max-w-2xl mx-auto px-4 py-2 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full max-w-2xl mx-auto px-4 py-2 rounded-lg border border-gray-700 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -104,7 +104,7 @@ export default function ExplorePage() {
             onClick={() => setActiveFilter('all')}
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeFilter === 'all'
-                ? 'bg-green-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
             }`}
           >
@@ -114,7 +114,7 @@ export default function ExplorePage() {
             onClick={() => setActiveFilter('11thgrade')}
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeFilter === '11thgrade'
-                ? 'bg-green-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
             }`}
           >
@@ -124,7 +124,7 @@ export default function ExplorePage() {
             onClick={() => setActiveFilter('12thgrade')}
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeFilter === '12thgrade'
-                ? 'bg-green-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
             }`}
           >
@@ -134,7 +134,7 @@ export default function ExplorePage() {
             onClick={() => setActiveFilter('Programming')}
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeFilter === 'Programming'
-                ? 'bg-green-600 text-white'
+                ? 'bg-blue-600 text-white'
                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
             }`}
           >
@@ -153,7 +153,7 @@ export default function ExplorePage() {
               <div className="p-6">
                 <div className="flex items-center space-x-2 mb-4">
                   {article.difficulty && (
-                    <span className="px-3 py-1 text-sm font-medium bg-green-900/30 text-green-300 rounded-full">
+                    <span className="px-3 py-1 text-sm font-medium bg-blue-900/30 text-blue-300 rounded-full">
                       {article.difficulty}
                     </span>
                   )}
@@ -167,7 +167,7 @@ export default function ExplorePage() {
                   ))}
                 </div>
 
-                <h2 className="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                <h2 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                   {article.title}
                 </h2>
 

@@ -117,10 +117,10 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
               )
             },
             blockquote: ({ node, ...props }) => (
-              <blockquote className="border-l-4 border-green-400 pl-6 italic my-8 text-gray-200 text-lg bg-gray-900 py-4 px-6 rounded-r-lg" {...props} />
+              <blockquote className="border-l-4 border-blue-400 pl-6 italic my-8 text-gray-200 text-lg bg-gray-900 py-4 px-6 rounded-r-lg" {...props} />
             ),
             a: ({ node, ...props }) => (
-              <a className="text-green-400 hover:underline font-medium" {...props} />
+              <a className="text-blue-400 hover:underline font-medium" {...props} />
             ),
             img: ({ node, ...props }) => (
               <div className="my-8">

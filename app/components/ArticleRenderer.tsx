@@ -55,7 +55,7 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 py-12">
+    <article className="max-w-4xl mx-auto px-4 py-12 bg-black text-white">
       <div className="prose dark:prose-invert max-w-none">
         <ReactMarkdown
           rehypePlugins={[
@@ -65,22 +65,22 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
           ]}
           components={{
             h1: ({ node, ...props }) => (
-              <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-4" {...props} />
+              <h1 className="text-4xl font-bold mb-8 text-white border-b border-gray-600 pb-4" {...props} />
             ),
             h2: ({ node, ...props }) => (
-              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white mt-12 border-b border-gray-200 dark:border-gray-700 pb-3" {...props} />
+              <h2 className="text-3xl font-bold mb-6 text-white mt-12 border-b border-gray-600 pb-3" {...props} />
             ),
             h3: ({ node, ...props }) => (
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white mt-10" {...props} />
+              <h3 className="text-2xl font-bold mb-4 text-white mt-10" {...props} />
             ),
             p: ({ node, ...props }) => (
-              <p className="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed text-lg" {...props} />
+              <p className="mb-6 text-gray-200 leading-relaxed text-lg" {...props} />
             ),
             ul: ({ node, ...props }) => (
-              <ul className="list-disc pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-3 text-lg" {...props} />
+              <ul className="list-disc pl-6 mb-6 text-gray-200 space-y-3 text-lg" {...props} />
             ),
             ol: ({ node, ...props }) => (
-              <ol className="list-decimal pl-6 mb-6 text-gray-600 dark:text-gray-300 space-y-3 text-lg" {...props} />
+              <ol className="list-decimal pl-6 mb-6 text-gray-200 space-y-3 text-lg" {...props} />
             ),
             li: ({ node, ...props }) => (
               <li className="mb-2" {...props} />
@@ -88,13 +88,13 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
             code: ({ node, className, children, ...props }) => {
               const match = /language-(\w+)/.exec(className || '')
               return match ? (
-                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto mb-6 shadow-sm">
+                <div className="bg-gray-900 p-6 rounded-xl overflow-x-auto mb-6 shadow-sm border border-gray-700">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <span className="text-sm font-medium text-gray-400">
                       {match[1]}
                     </span>
                     <button 
-                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                      className="text-gray-400 hover:text-gray-200 transition-colors"
                       onClick={() => {
                         navigator.clipboard.writeText(String(children))
                       }}
@@ -111,16 +111,16 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
                   </pre>
                 </div>
               ) : (
-                <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md text-sm font-mono" {...props}>
+                <code className="bg-gray-800 px-2 py-1 rounded-md text-sm font-mono text-gray-200" {...props}>
                   {children}
                 </code>
               )
             },
             blockquote: ({ node, ...props }) => (
-              <blockquote className="border-l-4 border-green-500 dark:border-green-400 pl-6 italic my-8 text-gray-600 dark:text-gray-300 text-lg bg-green-50 dark:bg-green-900/20 py-4 px-6 rounded-r-lg" {...props} />
+              <blockquote className="border-l-4 border-green-400 pl-6 italic my-8 text-gray-200 text-lg bg-gray-900 py-4 px-6 rounded-r-lg" {...props} />
             ),
             a: ({ node, ...props }) => (
-              <a className="text-green-600 dark:text-green-400 hover:underline font-medium" {...props} />
+              <a className="text-green-400 hover:underline font-medium" {...props} />
             ),
             img: ({ node, ...props }) => (
               <div className="my-8">
@@ -129,14 +129,14 @@ export function ArticleRenderer({ content }: ArticleRendererProps) {
             ),
             table: ({ node, ...props }) => (
               <div className="overflow-x-auto my-8">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700" {...props} />
+                <table className="min-w-full divide-y divide-gray-600" {...props} />
               </div>
             ),
             th: ({ node, ...props }) => (
-              <th className="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider" {...props} />
+              <th className="px-6 py-3 bg-gray-800 text-left text-xs font-medium text-gray-300 uppercase tracking-wider" {...props} />
             ),
             td: ({ node, ...props }) => (
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300" {...props} />
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-200" {...props} />
             ),
           }}
         >

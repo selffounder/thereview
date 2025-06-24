@@ -16,10 +16,10 @@ export function FeatureShowcase({
   cta?: { label: string; href: string };
 }) {
   return (
-    <section className="w-full py-20 font-[Satoshi,Inter,sans-serif]">
+    <section className="w-full py-20 font-[Satoshi,Inter,sans-serif] bg-black">
       <div className={`flex flex-col ${reverse ? "md:flex-row-reverse" : "md:flex-row"} items-center max-w-7xl mx-auto gap-16 px-4`}>
         <div className="w-full md:w-1/2 flex justify-center">
-          <div className="rounded-3xl shadow-2xl border-2 border-green-200 dark:border-emerald-900 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg transition-transform duration-300 hover:scale-[1.025] hover:shadow-3xl overflow-hidden">
+          <div className="rounded-3xl shadow-2xl border-2 border-green-700 bg-gray-900/80 backdrop-blur-lg transition-transform duration-300 hover:scale-[1.025] hover:shadow-3xl overflow-hidden">
             <video
               src={videoSrc}
               controls
@@ -29,12 +29,12 @@ export function FeatureShowcase({
           </div>
         </div>
         <div className="w-full md:w-1/2 flex flex-col items-start justify-center">
-          <Card className="bg-white/80 dark:bg-gray-900/80 shadow-xl border-0 p-0 w-full">
+          <Card className="bg-gray-900/80 shadow-xl border-0 p-0 w-full">
             <CardContent className="p-8 md:p-10">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 dark:from-green-400 dark:via-emerald-400 dark:to-green-400" style={{ fontFamily: 'Satoshi, Inter, sans-serif' }}>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-emerald-400 to-green-400" style={{ fontFamily: 'Satoshi, Inter, sans-serif' }}>
                 {headline}
               </h2>
-              <div className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 font-medium" style={{ fontFamily: 'Satoshi, Inter, sans-serif' }}>
+              <div className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 font-medium" style={{ fontFamily: 'Satoshi, Inter, sans-serif' }}>
                 {subheadline}
               </div>
               {cta && (

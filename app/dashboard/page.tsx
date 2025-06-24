@@ -56,10 +56,10 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading dashboard...</p>
+          <p className="mt-4 text-gray-400">Loading dashboard...</p>
         </div>
       </div>
     )
@@ -67,15 +67,15 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 mb-4">
             <svg className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Error</h2>
-          <p className="text-gray-600 dark:text-gray-400">{error}</p>
+          <h2 className="text-xl font-semibold text-white mb-2">Error</h2>
+          <p className="text-gray-400">{error}</p>
           <button
             onClick={() => router.push('/auth/login')}
             className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
@@ -92,14 +92,14 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow">
+      <header className="bg-gray-900 shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+            <h1 className="text-2xl font-bold text-white">Dashboard</h1>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <span className="text-sm text-gray-400">
                 {user.full_name}
               </span>
               <button
@@ -120,7 +120,7 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Status Banner */}
         {user.status === 'unconfirmed' && (
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-6">
+          <div className="bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
@@ -128,7 +128,7 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-yellow-700 dark:text-yellow-200">
+                <p className="text-sm text-yellow-200">
                   Please confirm your email address to access all features.
                 </p>
               </div>
@@ -140,24 +140,24 @@ export default function DashboardPage() {
         {user.role === 'student' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Progress Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Your Progress</h3>
+                <h3 className="text-lg font-medium text-white">Your Progress</h3>
                 <div className="mt-4">
                   <div className="relative pt-1">
                     <div className="flex mb-2 items-center justify-between">
                       <div>
-                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 dark:bg-green-900 dark:text-green-200">
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-200 bg-green-900">
                           Overall Progress
                         </span>
                       </div>
                       <div className="text-right">
-                        <span className="text-xs font-semibold inline-block text-green-600 dark:text-green-200">
+                        <span className="text-xs font-semibold inline-block text-green-200">
                           60%
                         </span>
                       </div>
                     </div>
-                    <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200 dark:bg-green-900">
+                    <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-900">
                       <div style={{ width: '60%' }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
                     </div>
                   </div>
@@ -166,19 +166,19 @@ export default function DashboardPage() {
             </div>
 
             {/* Upcoming Classes Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Upcoming Classes</h3>
+                <h3 className="text-lg font-medium text-white">Upcoming Classes</h3>
                 <div className="mt-4 space-y-4">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-                        <span className="text-green-600 dark:text-green-200 font-medium">M</span>
+                      <div className="h-10 w-10 rounded-full bg-green-900 flex items-center justify-center">
+                        <span className="text-green-200 font-medium">M</span>
                       </div>
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">Mathematics</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Today, 2:00 PM</p>
+                      <p className="text-sm font-medium text-white">Mathematics</p>
+                      <p className="text-sm text-gray-400">Today, 2:00 PM</p>
                     </div>
                   </div>
                 </div>
@@ -186,9 +186,9 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick Actions Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Quick Actions</h3>
+                <h3 className="text-lg font-medium text-white">Quick Actions</h3>
                 <div className="mt-4 space-y-4">
                   <Link
                     href="/assignments"
@@ -211,36 +211,36 @@ export default function DashboardPage() {
         {user.role === 'teacher' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Class Overview Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Class Overview</h3>
+                <h3 className="text-lg font-medium text-white">Class Overview</h3>
                 <div className="mt-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Total Students</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">24</span>
+                    <span className="text-sm text-gray-400">Total Students</span>
+                    <span className="text-sm font-medium text-white">24</span>
                   </div>
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Active Classes</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">3</span>
+                    <span className="text-sm text-gray-400">Active Classes</span>
+                    <span className="text-sm font-medium text-white">3</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Upcoming Classes Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Today's Classes</h3>
+                <h3 className="text-lg font-medium text-white">Today's Classes</h3>
                 <div className="mt-4 space-y-4">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-                        <span className="text-green-600 dark:text-green-200 font-medium">9A</span>
+                      <div className="h-10 w-10 rounded-full bg-green-900 flex items-center justify-center">
+                        <span className="text-green-200 font-medium">9A</span>
                       </div>
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">Class 9A</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">2:00 PM - 3:30 PM</p>
+                      <p className="text-sm font-medium text-white">Class 9A</p>
+                      <p className="text-sm text-gray-400">2:00 PM - 3:30 PM</p>
                     </div>
                   </div>
                 </div>
@@ -248,9 +248,9 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick Actions Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Quick Actions</h3>
+                <h3 className="text-lg font-medium text-white">Quick Actions</h3>
                 <div className="mt-4 space-y-4">
                   <Link
                     href="/classes"
@@ -273,30 +273,30 @@ export default function DashboardPage() {
         {user.role === 'admin' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* System Overview Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">System Overview</h3>
+                <h3 className="text-lg font-medium text-white">System Overview</h3>
                 <div className="mt-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Total Users</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">150</span>
+                    <span className="text-sm text-gray-400">Total Users</span>
+                    <span className="text-sm font-medium text-white">150</span>
                   </div>
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Active Teachers</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">12</span>
+                    <span className="text-sm text-gray-400">Active Teachers</span>
+                    <span className="text-sm font-medium text-white">12</span>
                   </div>
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Active Students</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">138</span>
+                    <span className="text-sm text-gray-400">Active Students</span>
+                    <span className="text-sm font-medium text-white">138</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Quick Actions Card */}
-            <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="bg-gray-900 overflow-hidden shadow rounded-lg">
               <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Quick Actions</h3>
+                <h3 className="text-lg font-medium text-white">Quick Actions</h3>
                 <div className="mt-4 space-y-4">
                   <Link
                     href="/admin/users"

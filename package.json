@@ -23,6 +23,7 @@
     "framer-motion": "^12.11.3",
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
     "lucide-react": "^0.510.0",
     "moment": "^2.30.1",
     "next": "15.3.2",
